@@ -1,42 +1,9 @@
 {% load sekizai_tags thumbnail %}
 {% spaceless %}
 
-{% addtoblock "css" %}
-<style type="text/css">
-
-.carousel {
-  margin: auto;
-  max-width: {{ instance.width }}px;
-  max-height: {{ instance.height }}px;
-}
-
-.carousel-caption {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 15px;
-  background: #333333;
-  background: rgba(0, 0, 0, 0.75);
-}
-
-.carousel-caption h4,
-.carousel-caption p {
-  line-height: 20px;
-  color: #ffffff;
-}
-
-.carousel-caption h4 {
-  margin: 0 0 5px;
-}
-
-.carousel-caption p {
-  margin-bottom: 0;
-}
-</style>
-{% endaddtoblock %}
 
 
+<article>
 <div id="{{ instance.domid }}" class="carousel slide" data-ride="carousel">
   {% if instance.show_indicator %}
   <ol class="carousel-indicators">
@@ -47,6 +14,12 @@
   </ol>
   {% endif %}
 
+  {% if instance.title %}
+
+    <h3 class="title">{{ instance.title }}</h3>
+
+  {% endif %}
+
   <div class="carousel-inner">
     {% for item in instance.carouselitem_set.all %}
     <div class="{% if forloop.first %}active {% endif %}item">
@@ -54,7 +27,7 @@
         <a href="{{ item.url }}">
       {% endif %}
       {% if item.image %}
-        <img alt="" src="{% thumbnail item.image instance.size upscale %}">
+        <img alt="" src="{{ item.image.url }}" width="100%">
       {% endif %}
       {% if item.url %}
         </a>
@@ -82,5 +55,6 @@
     <span class="glyphicon glyphicon-chevron-right"></span></a>
   {% endif %}
 </div>
+</article>
 
 {% endspaceless %}

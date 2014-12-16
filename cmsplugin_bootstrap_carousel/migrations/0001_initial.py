@@ -9,14 +9,14 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding model 'Carousel'
-        db.create_table(u'cmsplugin_bootstrap_carousel_carousel', (
+        db.create_table(u'cmsplugin_carousel', (
             (u'cmsplugin_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['cms.CMSPlugin'], unique=True, primary_key=True)),
             ('domid', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('interval', self.gf('django.db.models.fields.IntegerField')(default=5000)),
-            ('show_title', self.gf('django.db.models.fields.BooleanField')()),
-            ('show_caption', self.gf('django.db.models.fields.BooleanField')(default=True)),
-            ('width', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
-            ('height', self.gf('django.db.models.fields.PositiveIntegerField')(default=0)),
+            ('show_title', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('show_caption', self.gf('django.db.models.fields.BooleanField')(default=False)),
+            ('show_controls', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('show_indicator', self.gf('django.db.models.fields.BooleanField')(default=True)),
         ))
         db.send_create_signal(u'cmsplugin_bootstrap_carousel', ['Carousel'])
 
@@ -34,7 +34,7 @@ class Migration(SchemaMigration):
 
     def backwards(self, orm):
         # Deleting model 'Carousel'
-        db.delete_table(u'cmsplugin_bootstrap_carousel_carousel')
+        db.delete_table(u'cmsplugin_carousel')
 
         # Deleting model 'CarouselItem'
         db.delete_table(u'cmsplugin_bootstrap_carousel_carouselitem')
@@ -63,14 +63,14 @@ class Migration(SchemaMigration):
             'slot': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_index': 'True'})
         },
         u'cmsplugin_bootstrap_carousel.carousel': {
-            'Meta': {'object_name': 'Carousel', '_ormbases': ['cms.CMSPlugin']},
+            'Meta': {'object_name': 'Carousel', 'db_table': "u'cmsplugin_carousel'", '_ormbases': ['cms.CMSPlugin']},
             u'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
             'domid': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
-            'height': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'}),
             'interval': ('django.db.models.fields.IntegerField', [], {'default': '5000'}),
-            'show_caption': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
-            'show_title': ('django.db.models.fields.BooleanField', [], {}),
-            'width': ('django.db.models.fields.PositiveIntegerField', [], {'default': '0'})
+            'show_caption': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
+            'show_controls': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'show_indicator': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'show_title': ('django.db.models.fields.BooleanField', [], {'default': 'False'})
         },
         u'cmsplugin_bootstrap_carousel.carouselitem': {
             'Meta': {'object_name': 'CarouselItem'},
